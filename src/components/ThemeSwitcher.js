@@ -101,8 +101,24 @@ function ThemeSwitcher() {
     // }
     return (
         <ThemeWrapper ref={buttons}>
-            <RedButton id='red' onClick={() => {setCurrentTheme('red')}}> </RedButton>
-            <NeonButton id='neon' onClick={() => {setCurrentTheme('neon')}} className='active'></NeonButton>
+            <RedButton 
+                id='red' 
+                onClick={() => {
+                    setCurrentTheme('red')
+                    }
+                }
+            >
+            </RedButton>
+            <NeonButton 
+                id='neon' 
+                onClick={() => {
+                    setCurrentTheme('neon'
+                    )}
+                } 
+                className='active'
+            >
+
+            </NeonButton>
             <GreenButton id='green' onClick={() =>{setCurrentTheme('green')}}></GreenButton>
             <PurpleButton id='purple' onClick={()=>{setCurrentTheme('purple')}}></PurpleButton>
         </ThemeWrapper>

@@ -14,6 +14,7 @@ h1 {
   margin: 1rem 0;
   text-align: center;
   font-size: 1.4rem;
+  transition:all 0s;
 }
 `
 export default NavbarWrap
