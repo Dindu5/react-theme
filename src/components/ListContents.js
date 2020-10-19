@@ -12,8 +12,9 @@ function ListContents() {
         <ListContentWrapper>
             <ListItem item='With css variables'/>
             <ListItem item='Styled-components'/>
-            <ListItem item='No context or State'/>
-            <ListItem item='No local storage'/>
+            <ListItem item='useState and useEffect'/>
+            <ListItem item='No context'/>
+            <ListItem item='local storage enabled'/>
             <ListItem item='Highly adptable'/>
         </ListContentWrapper>
     )

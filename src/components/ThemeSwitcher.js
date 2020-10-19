@@ -1,6 +1,7 @@
-import React, { useRef } from 'react'
+import React, { useRef,useEffect, useState } from 'react'
 import styled from 'styled-components'
 import {device} from './breakpoint'
+import {themes} from '../theme'
 
 const ThemeWrapper = styled.div `
 position: absolute;
@@ -38,46 +39,72 @@ background-color :#d8e8f0;
 const PurpleButton = styled(Button)`
 background-color :#14ffec;
 `
-const switchTheme = (color) => {
-    if (color === 'red'){
-        document.documentElement.style.setProperty('--primary-bg', '#102038')
-        document.documentElement.style.setProperty('--primary-font', '#e84060')
-        document.documentElement.style.setProperty('--primary-base', '#181828')
-    } 
-    else if (color === 'neon'){
-        document.documentElement.style.setProperty('--primary-bg', '#3080b8')
-        document.documentElement.style.setProperty('--primary-font', '#b8e0f8')
-        document.documentElement.style.setProperty('--primary-base', '#084870')
-    }
-    else if (color === 'green'){
-        document.documentElement.style.setProperty('--primary-bg', '#283048"')
-        document.documentElement.style.setProperty('--primary-font', '#d8e8f0')
-        document.documentElement.style.setProperty('--primary-base', '#008088')
-    }
-    else if (color === 'purple'){
-        document.documentElement.style.setProperty('--primary-bg', '#323232')
-        document.documentElement.style.setProperty('--primary-font', '#14ffec')
-        document.documentElement.style.setProperty('--primary-base', '#212121')
-    }
-}
 function ThemeSwitcher() {
-    const buttons = useRef()
-    const classSwitch = (e) =>{
-        const buttonElements = Array.from(buttons.current.children)
-        buttonElements.forEach(buttonElement => {
-            if (e.target === buttonElement){
-                buttonElements.forEach(element => element.classList.remove('active'))
-                e.target.classList.add('active')
-            }
-        })
-    }
+    const [currentTheme, setCurrentTheme] = useState(localStorage.getItem('userTheme') ? localStorage.getItem('userTheme') : 'neon')
     
+    const switchTheme = (currentTheme) => {
+        if (currentTheme === 'red'){
+            document.documentElement.style.setProperty('--primary-bg', themes.red.bg)
+            document.documentElement.style.setProperty('--primary-font', themes.red.font)
+            document.documentElement.style.setProperty('--primary-base', themes.red.base)
+        } 
+        if (currentTheme === 'neon'){
+            document.documentElement.style.setProperty('--primary-bg', themes.neon.bg)
+            document.documentElement.style.setProperty('--primary-font', themes.neon.font)
+            document.documentElement.style.setProperty('--primary-base', themes.neon.base)
+        }
+        if (currentTheme === 'green'){
+            document.documentElement.style.setProperty('--primary-bg', themes.green.bg)
+            document.documentElement.style.setProperty('--primary-font', themes.green.font)
+            document.documentElement.style.setProperty('--primary-base', themes.green.base)
+           
+        }
+        if (currentTheme === 'purple'){
+            document.documentElement.style.setProperty('--primary-bg', themes.purple.bg)
+            document.documentElement.style.setProperty('--primary-font', themes.purple.font)
+            document.documentElement.style.setProperty('--primary-base', themes.purple.base)
+        }
+        localStorage.setItem('userTheme', currentTheme)
+    }
+
+    // const classSwitch = (theme) => {
+    //     console.log(buttons.current)
+    //     const buttonElements = Array.from(buttons.current.children)
+    //         buttonElements.forEach(buttonElement =>{
+    //             buttonElement.classList.remove('active');
+    //             const activeSwitcher = (theme) =>{
+    //                 if(theme === buttonElement.id){
+    //                     buttonElement.classList.add('active');
+    //                 }
+    //              }
+    //              activeSwitcher(theme)
+    //         })
+    // }
+    const buttons = useRef()
+    useEffect(()=>{
+        
+        const buttonElements = Array.from(buttons.current.children)
+        buttonElements.forEach(buttonElement =>{
+            buttonElement.classList.remove('active');
+            const activeSwitcher = (currentTheme) =>{
+                if(currentTheme === buttonElement.id){
+                    buttonElement.classList.add('active');
+                }
+            }
+            activeSwitcher(currentTheme)
+            switchTheme(currentTheme)
+        })
+    },[currentTheme])
+    // if(localStorage.length > 0){
+    //     const seletedTheme = localStorage.getItem('userTheme')
+    //     switchTheme(seletedTheme)
+    // }
     return (
-        <ThemeWrapper ref={buttons} onClick={(e)=> {classSwitch(e)}}>
-            <RedButton onClick={() => {switchTheme('red')}}> </RedButton>
-            <NeonButton onClick={() => {switchTheme('neon')}} className='active'></NeonButton>
-            <GreenButton onClick={() =>{switchTheme('green')}}></GreenButton>
-            <PurpleButton onClick={()=>{switchTheme('purple')}}></PurpleButton> 
+        <ThemeWrapper ref={buttons}>
+            <RedButton id='red' onClick={() => {setCurrentTheme('red')}}> </RedButton>
+            <NeonButton id='neon' onClick={() => {setCurrentTheme('neon')}} className='active'></NeonButton>
+            <GreenButton id='green' onClick={() =>{setCurrentTheme('green')}}></GreenButton>
+            <PurpleButton id='purple' onClick={()=>{setCurrentTheme('purple')}}></PurpleButton>
         </ThemeWrapper>
     )
 }

@@ -2,6 +2,7 @@
   const purple = { bg: "#323232", font : '#14ffec', base :'#212121' };
   const red = { bg: "#102038", font : '#e84060', base :'#181828' };
   const green = { bg: "#283048", font : '#d8e8f0', base :'#008088' } */
+
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 :root {
   --primary-bg: #3080b8;
